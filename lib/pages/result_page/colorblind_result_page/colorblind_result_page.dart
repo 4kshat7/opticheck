@@ -109,19 +109,6 @@ class _ColorblindResultPageState extends State<ColorblindResultPage> {
   }
 }
 
-Widget _buildEyeIcon(String status) {
-  switch (status) {
-    case 'red':
-      return Image.asset(BadcolorBlindEyeIcon);
-    case 'amber':
-      return Image.asset(OkcolorBlindEyeIcon);
-    case 'green':
-      return Image.asset(GoodcolorBlindEyeIcon);
-    default:
-      return Image.asset(DefaultColorBlindIcon);
-  }
-}
-
 // Helper function to build the eye icon and status text based on status
 Widget _buildEyeIconAndStatus(
     BuildContext context, String status, int correctPlatesCount) {
@@ -133,26 +120,26 @@ Widget _buildEyeIconAndStatus(
     case 'red':
       statusText = 'Category: Protanopia or Deuteranopia';
       descText =
-          'You might have "Total red-green" color blindness. Protanopia is the inability to see red light, while deuteranopia affects green perception. Both conditions can impact tasks like reading traffic lights or identifying certain colors accurately.';
+          'You might have "Total red-green" color blindness. Protanopia is the inability to see the color red at all, while deuteranopiais is the inability to see the color green. Both conditions can impact tasks like reading traffic lights or identifying certain colors accurately. You are adviced to get this checked';
       eyeIcon = Image.asset(BadcolorBlindEyeIcon);
       break;
     case 'amber':
       statusText = 'Category: Protanomaly or Deuteranomaly';
       descText =
-          'You might have "partial red-green" color blindness. Affecting the perception of red and green hues. Protanomaly makes it difficult to see red properly.Deuteranomaly affects green perception. Individuals with these conditions may have trouble distinguishing between certain shades of red and green';
+          'You might have "Partial red-green" color blindness. Affecting the perception of red and green hues. Protanomaly makes it difficult to see the color red properly. Deuteranomaly affects green perception. Individuals with these conditions may have trouble distinguishing between certain shades of red and green. You are adviced to get this checked';
       eyeIcon = Image.asset(OkcolorBlindEyeIcon);
       break;
     case 'green':
-      statusText = 'You have trichromatic vision';
+      statusText = 'You have Trichromatic vision';
       descText =
-          'You have a perfectly healthy color vision, you can perceive a full range of colors by using three types of cone cells in the eyes: red, green, and blue. This allows for accurate differentiation between various hues and shades across the visible spectrum.';
+          'You have "Normal color vision", you can perceive a full range of colors using all three cone cells in the eyes: red, green, and blue. This allows for accurate differentiation between various hues and shades across the visible spectrum.';
 
       eyeIcon = Image.asset(GoodcolorBlindEyeIcon);
       break;
     default:
       statusText = 'No Result';
       descText =
-          'Take the Color-blind test to determine which category best describes your color vision.';
+          'Take the Color - blind test to determine which category best describes your color vision.';
       eyeIcon = Image.asset(DefaultColorBlindIcon);
   }
 
@@ -171,9 +158,11 @@ Widget _buildEyeIconAndStatus(
       //       'https://lottie.host/1d50b1d2-ac5f-4225-9b38-b7d4a2258898/HlpE3G1sAb.json'),
       // ),
       Text(
-        correctPlatesCount == plates.length - 1
-            ? 'Congratulations!!'
-            : 'You got $correctPlatesCount Correct',
+        correctPlatesCount == 0
+            ? ''
+            : correctPlatesCount == plates.length - 1
+                ? 'Congratulations!!'
+                : 'You got $correctPlatesCount Correct out of 20',
         style: TextStyle(
             shadows: [
               Shadow(
@@ -188,21 +177,23 @@ Widget _buildEyeIconAndStatus(
         softWrap: true,
         overflow: TextOverflow.visible,
       ),
-      LargeGlassBox(
-        MainText: statusText,
-        SecondaryText: descText,
-        MainTextFontSize: calculateFontSize(context) * 1.3,
-        SecondaryTextFontSize: calculateFontSize(context),
-        height: calculateBoxSize(context) * 2.5,
-        width: calculateBoxSize(context) * 2.5,
-        color: AppBarColorUtil.getAppBarColor(status),
-        // imagePath: DefaultColorBlindIcon,
-        // bottomLeftIconData: Icons.info,
-        // infoText: VCinfo,
-        bottomRightImageData: 'lib/assets/images/opticheck_nobg.png',
-        // onTapAction: () {
-        //   print('Second box tapped!');
-        // },
+      Center(
+        child: LargeGlassBox(
+          MainText: statusText,
+          SecondaryText: descText,
+          MainTextFontSize: calculateFontSize(context) * 1.3,
+          SecondaryTextFontSize: calculateFontSize(context),
+          height: calculateBoxSize(context) * 2.5,
+          width: calculateBoxSize(context) * 2.5,
+          color: AppBarColorUtil.getAppBarColor(status),
+          // imagePath: DefaultColorBlindIcon,
+          // bottomLeftIconData: Icons.info,
+          // infoText: VCinfo,
+          bottomRightImageData: 'lib/assets/images/opticheck_nobg.png',
+          // onTapAction: () {
+          //   print('Second box tapped!');
+          // },
+        ),
       ),
 
       // Text(

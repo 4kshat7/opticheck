@@ -3,6 +3,7 @@ library globals;
 import "package:audioplayers/audioplayers.dart";
 import "package:flutter/material.dart";
 import "package:opticheck/utils/IshiharaPlate.dart";
+import "package:opticheck/utils/landoltPlate.dart";
 
 //images
 const String globalLogoImage = 'lib/assets/images/opticheck.png';
@@ -106,6 +107,13 @@ double calculateBottomPosition(BuildContext context) {
   return screenHeight * 0.1; // 10% from the bottom of the screen
 }
 
+// Interactive Circle Util
+double calculateInteractiveCircleSize(BuildContext context) {
+  Size screenSize = getScreenSize(context);
+  double averageSize = (screenSize.height + screenSize.width) / 2;
+  return averageSize * 0.60;
+}
+
 //Bluetooth page
 
 //Selection page
@@ -173,6 +181,30 @@ final List<IshiharaPlate> plates = [
 ];
 
 const Color colorBlindTestButtonColor = Colors.blueGrey;
+
+// // CONTRAST IMAGES
+const String landolt_U = 'lib/assets/images/Landolt_U.png';
+const String landolt_UR = 'lib/assets/images/Landolt_UR.png';
+
+const String landolt_R = 'lib/assets/images/Landolt_R.png';
+const String landolt_BR = 'lib/assets/images/Landolt_BR.png';
+
+const String landolt_B = 'lib/assets/images/Landolt_B.png';
+const String landolt_BL = 'lib/assets/images/Landolt_BL.png';
+
+const String landolt_L = 'lib/assets/images/Landolt_L.png';
+const String landolt_UL = 'lib/assets/images/Landolt_UL.png';
+
+final List<Landoltplate> landoltPlates = [
+  Landoltplate(imagePath: landolt_U, correctLabel: 1),
+  Landoltplate(imagePath: landolt_UR, correctLabel: 2),
+  Landoltplate(imagePath: landolt_R, correctLabel: 3),
+  Landoltplate(imagePath: landolt_BR, correctLabel: 4),
+  Landoltplate(imagePath: landolt_B, correctLabel: 5),
+  Landoltplate(imagePath: landolt_BL, correctLabel: 6),
+  Landoltplate(imagePath: landolt_L, correctLabel: 7),
+  Landoltplate(imagePath: landolt_UL, correctLabel: 8),
+];
 
 // // RESULT PAGE
 class AppBarColorUtil {

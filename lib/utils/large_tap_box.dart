@@ -11,6 +11,7 @@ class LargeTappableArea extends StatelessWidget {
   final String? bottomRightImageData;
   final IconData? bottomLeftIconData;
   final double? MainTextFontSize;
+  double? NoneTextFontSize;
   final Color color;
 
   LargeTappableArea(
@@ -23,7 +24,8 @@ class LargeTappableArea extends StatelessWidget {
       this.bottomLeftIconData,
       this.bottomRightImageData,
       this.color = globalSecondaryColor,
-      required this.MainTextFontSize});
+      required this.MainTextFontSize,
+      this.NoneTextFontSize = 20});
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +123,9 @@ class LargeTappableArea extends StatelessWidget {
                             blurRadius: 0.5,
                           ),
                         ],
-                        fontSize: MainTextFontSize,
+                        fontSize: text == 'none'
+                            ? NoneTextFontSize
+                            : MainTextFontSize,
                         fontFamily: 'Merriweather',
                         fontWeight: globalFontWeight,
                         color: globalBackgroundColor),

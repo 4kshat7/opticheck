@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:opticheck/common/global/bluetooth_state_class.dart';
 import 'package:opticheck/common/global/data_model.dart';
 import 'package:opticheck/common/global/global.dart';
 import 'package:opticheck/pages/bluetooth_page/bluetooth_page.dart';
-import 'package:opticheck/pages/colorblind_page/colorblindtest_main.dart';
-import 'package:opticheck/pages/colorblind_page/colorblindtest_main_landscape.dart';
+import 'package:opticheck/pages/colorblind_page/design/Portrait_colorblindtest_design.dart';
+import 'package:opticheck/pages/colorblind_page/design/landscape_colorblindtest_design.dart';
+import 'package:opticheck/pages/colorblind_page/logic/colorbindtest_logic.dart';
+import 'package:opticheck/pages/contrast_page/design/Portrait_contrasttest_design.dart';
 import 'package:opticheck/pages/home_page/home_page.dart';
 import 'package:opticheck/pages/home_page/home_page_landscape.dart';
-import 'package:opticheck/pages/result_page/acuity_result_page.dart';
 import 'package:opticheck/pages/result_page/result_page_main.dart';
 import 'package:opticheck/pages/selection_page/selection_page.dart';
 import 'package:opticheck/pages/selection_page/selection_page_landscape.dart';
 import 'package:opticheck/common/responsive/responsive.dart';
-import 'package:opticheck/pages/sensor_page.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -116,9 +115,15 @@ class MyApp extends StatelessWidget {
 
         '/bluetoothpage': (context) => const BluetoothPage(),
         '/resultpage': (context) => ResultPageMain(),
-        '/colorblindtestpage': (contest) => ResponsiveLayout(
-            mobileBody: ColorblindtestMain(),
-            landscapeBody: ColorblindtestMainLandscape()),
+        '/contrastpage': (context) => ContrastTestPortrait(),
+        '/colorblindtestpage': (context) =>
+            ChangeNotifierProvider<ColorblindTestLogicController>(
+              create: (_) => ColorblindTestLogicController(context),
+              child: ResponsiveLayout(
+                mobileBody: ColorblindTestPortrait(),
+                landscapeBody: ColorblindTestLandscape(),
+              ),
+            ),
       },
       onGenerateRoute: (settings) {
         switch (settings.name) {

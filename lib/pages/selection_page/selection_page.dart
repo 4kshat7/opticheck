@@ -1,17 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:lottie/lottie.dart';
 import 'package:opticheck/common/global/global.dart';
-import 'package:opticheck/common/responsive/responsive.dart';
-import 'package:opticheck/pages/home_page/home_page.dart';
-import 'package:opticheck/pages/home_page/home_page_landscape.dart';
-import 'package:opticheck/pages/result_page/acuity_result_page.dart';
-import 'package:opticheck/pages/result_page/result_page_main.dart';
 import 'package:opticheck/utils/back_icons.dart';
-import 'package:opticheck/utils/primary_button.dart';
 import 'package:opticheck/utils/large_tap_box.dart';
-import 'package:page_transition/page_transition.dart';
 
 class SelectionPage extends StatefulWidget {
   const SelectionPage({super.key});
@@ -167,7 +158,8 @@ class _SelectionPageState extends State<SelectionPage> {
                   infoText: VCinfo,
                   bottomRightImageData: 'lib/assets/images/opticheck_nobg.png',
                   onTapAction: () {
-                    print('Second box tapped!');
+                    // print('Second box tapped!');
+                    Navigator.pushNamed(context, '/contrastpage');
                   },
                 ),
               ),
@@ -188,7 +180,7 @@ class _SelectionPageState extends State<SelectionPage> {
                   bottomRightImageData: 'lib/assets/images/opticheck_nobg.png',
                   onTapAction: () {
                     Navigator.pushNamed(context, '/colorblindtestpage');
-                    print('Third box tapped!');
+                    // print('Third box tapped!');
                   },
                 ),
               ),

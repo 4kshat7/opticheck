@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 12.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 51448)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+    <!ENTITY ns_svg "http://www.w3.org/2000/svg">
+    <!ENTITY ns_xlink "http://www.w3.org/1999/xlink">
+]>
+<svg version="1.1" id="Layer_1" xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width="126.8" height="126.8" viewBox="0 0 126.8 126.8"
+     style="overflow:visible;enable-background:new 0 0 126.8 126.8;" xml:space="preserve">
+    <defs>
+        <mask id="holeMask">
+            <rect width="100%" height="100%" fill="white"/>
+            <circle cx="63" cy="63.4" r="37.8" fill="black"/>
+        </mask>
+    </defs>
+    <g mask="url(#holeMask)">
+        <path d="M99.4,73.5H126c-4.9,30.2-31,53.2-62.6,53.2C28.4,126.8,0,98.4,0,63.4S28.4,0,63.4,0C95,0,121.1,23.1,126,53.3H99.4V73.5z"/>
+    </g>
+</svg>
