@@ -62,7 +62,7 @@ class _LandscapeSelectionPageState extends State<LandscapeSelectionPage> {
                 //     duration: Duration(milliseconds: 200),
                 //   ),
                 // );
-                Navigator.pushNamed(context, '/resultpage');
+                Navigator.pushNamed(context, '/acuityresultpage');
               },
               child: SizedBox(
                 width: calculateIconSize(context),

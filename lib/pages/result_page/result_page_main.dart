@@ -3,13 +3,14 @@ import 'package:opticheck/common/global/global.dart';
 import 'package:opticheck/pages/result_page/acuity_result_page.dart';
 import 'package:opticheck/pages/result_page/colorblind_result_page/colorblind_result_page.dart';
 import 'package:opticheck/pages/result_page/colorblind_result_page/landscape_colorblind_result_page.dart';
-import 'package:opticheck/pages/result_page/contrast_result_page.dart';
+import 'package:opticheck/pages/result_page/contrast_result_page/contrast_result_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:opticheck/common/responsive/responsive.dart';
 
 class ResultPageMain extends StatelessWidget {
-  ResultPageMain({super.key});
+  ResultPageMain({super.key, required this.pages});
   final _controller = PageController();
+  final List<Widget> pages;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +30,16 @@ class ResultPageMain extends StatelessWidget {
                 child: PageView(
                   controller: _controller,
                   // physics: NeverScrollableScrollPhysics(),
-                  children: [
-                    ResponsiveLayout(
-                        mobileBody: ColorblindResultPage(),
-                        landscapeBody: LandscapeColorblindResultPage()),
-                    AcuityResultPage(),
-                    ContrastResultPage(),
-                  ],
+
+                  // children: [
+                  //   ResponsiveLayout(
+                  //       mobileBody: ColorblindResultPage(),
+                  //       landscapeBody: LandscapeColorblindResultPage()),
+                  //   AcuityResultPage(),
+                  //   ContrastResultPage(),
+                  // ],
+
+                  children: pages,
                 ),
               ),
               Row(
@@ -45,7 +49,7 @@ class ResultPageMain extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     child: SmoothPageIndicator(
                       controller: _controller,
-                      count: 3,
+                      count: pages.length,
                       effect: ExpandingDotsEffect(
                         activeDotColor: primaryButtonBackgroundColor,
                         dotColor: globalSecondaryColor,

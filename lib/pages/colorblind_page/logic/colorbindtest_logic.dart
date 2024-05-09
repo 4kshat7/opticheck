@@ -90,7 +90,7 @@ class ColorblindTestLogicController with ChangeNotifier {
     currentPlate = getNextPlate(context);
     generateLabels(context);
     labelColors.fillRange(0, 4, colorBlindTestButtonColor);
-    Navigator.pushNamed(context, '/resultpage');
+    Navigator.pushNamed(context, '/colorblindresultpage');
     notifyListeners();
   }
 }

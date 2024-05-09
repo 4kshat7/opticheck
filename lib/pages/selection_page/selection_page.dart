@@ -75,7 +75,7 @@ class _SelectionPageState extends State<SelectionPage> {
                   //     duration: Duration(milliseconds: 200),
                   //   ),
                   // );
-                  Navigator.pushNamed(context, '/resultpage');
+                  Navigator.pushNamed(context, '/acuityresultpage');
                 },
                 child: SizedBox(
                   width: calculateIconSize(context),

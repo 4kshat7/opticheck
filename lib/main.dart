@@ -7,8 +7,14 @@ import 'package:opticheck/pages/colorblind_page/design/Portrait_colorblindtest_d
 import 'package:opticheck/pages/colorblind_page/design/landscape_colorblindtest_design.dart';
 import 'package:opticheck/pages/colorblind_page/logic/colorbindtest_logic.dart';
 import 'package:opticheck/pages/contrast_page/design/Portrait_contrasttest_design.dart';
+import 'package:opticheck/pages/contrast_page/logic/contrasttest_logic.dart';
 import 'package:opticheck/pages/home_page/home_page.dart';
 import 'package:opticheck/pages/home_page/home_page_landscape.dart';
+import 'package:opticheck/pages/result_page/acuity_result_page.dart';
+import 'package:opticheck/pages/result_page/colorblind_result_page/colorblind_result_page.dart';
+import 'package:opticheck/pages/result_page/colorblind_result_page/landscape_colorblind_result_page.dart';
+import 'package:opticheck/pages/result_page/contrast_result_page/contrast_result_page.dart';
+import 'package:opticheck/pages/result_page/contrast_result_page/landscape_contrast_result_page.dart';
 import 'package:opticheck/pages/result_page/result_page_main.dart';
 import 'package:opticheck/pages/selection_page/selection_page.dart';
 import 'package:opticheck/pages/selection_page/selection_page_landscape.dart';
@@ -107,6 +113,7 @@ class MyApp extends StatelessWidget {
               mobileBody: HomePage(),
               landscapeBody: LandscapeHomePage(),
             ),
+
         // '/selectionpage': (context) => ResponsiveLayout(
         //       mobileBody: SelectionPage(),
         //       landscapeBody: LandscapeSelectionPage(),
@@ -114,8 +121,49 @@ class MyApp extends StatelessWidget {
         // '/sensorpage': (context) => SensorPage(connection: BluetoothManager().connection),
 
         '/bluetoothpage': (context) => const BluetoothPage(),
-        '/resultpage': (context) => ResultPageMain(),
-        '/contrastpage': (context) => ContrastTestPortrait(),
+
+
+//result pages
+        '/acuityresultpage': (context) => ResultPageMain(pages: [
+              AcuityResultPage(),
+              ResponsiveLayout(
+                  mobileBody: ContrastResultPage(),
+                  landscapeBody: LandscapeContrastResultPage()),
+              ResponsiveLayout(
+                  mobileBody: ColorblindResultPage(),
+                  landscapeBody: LandscapeColorblindResultPage()),
+            ]),
+
+        '/contrastresultpage': (context) => ResultPageMain(pages: [
+              ResponsiveLayout(
+                  mobileBody: ContrastResultPage(),
+                  landscapeBody: LandscapeContrastResultPage()),
+              ResponsiveLayout(
+                  mobileBody: ColorblindResultPage(),
+                  landscapeBody: LandscapeColorblindResultPage()),
+              AcuityResultPage(),
+            ]),
+
+        '/colorblindresultpage': (context) => ResultPageMain(pages: [
+          ResponsiveLayout(
+                  mobileBody: ColorblindResultPage(),
+                  landscapeBody: LandscapeColorblindResultPage()),
+              AcuityResultPage(),
+              ResponsiveLayout(
+                  mobileBody: ContrastResultPage(),
+                  landscapeBody: LandscapeContrastResultPage()),
+            ]),
+
+
+//test pages
+        '/contrastpage': (context) =>
+            ChangeNotifierProvider<ContrastTestLogicController>(
+              create: (_) => ContrastTestLogicController(context),
+              child: ResponsiveLayout(
+                mobileBody: ContrastTestPortrait(),
+                landscapeBody: ContrastTestPortrait(),
+              ),
+            ),
         '/colorblindtestpage': (context) =>
             ChangeNotifierProvider<ColorblindTestLogicController>(
               create: (_) => ColorblindTestLogicController(context),
@@ -125,6 +173,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
       },
+//animated transition pages
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case '/selectionPage':

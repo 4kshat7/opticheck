@@ -31,8 +31,12 @@ const String DefaultColorBlindIcon = 'lib/assets/images/color-blind2.png';
 const String Resultpage_bg = 'lib/assets/images/opticheck_result_bg.jpg';
 const String Resultpage_bg2 = 'lib/assets/images/opticheck_result_bg2.jpg';
 
-const String dropperIcon = 'lib/assets/images/dropper.png';
 const String eyeGoodIcon = 'lib/assets/images/eye_good.png';
+
+const String dropperIcon = 'lib/assets/images/dropper.png';
+const String goodcontrast = 'lib/assets/images/good_contrast2.png';
+const String okcontrast = 'lib/assets/images/ok_contrast.png';
+const String badcontrast = 'lib/assets/images/bad_contrast.png';
 
 final player = AudioPlayer();
 
