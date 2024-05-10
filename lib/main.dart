@@ -6,11 +6,17 @@ import 'package:opticheck/pages/bluetooth_page/bluetooth_page.dart';
 import 'package:opticheck/pages/colorblind_page/design/Portrait_colorblindtest_design.dart';
 import 'package:opticheck/pages/colorblind_page/design/landscape_colorblindtest_design.dart';
 import 'package:opticheck/pages/colorblind_page/logic/colorbindtest_logic.dart';
+import 'package:opticheck/pages/contrast_page/design/Landscape_contrasttest_design.dart';
 import 'package:opticheck/pages/contrast_page/design/Portrait_contrasttest_design.dart';
 import 'package:opticheck/pages/contrast_page/logic/contrasttest_logic.dart';
 import 'package:opticheck/pages/home_page/home_page.dart';
 import 'package:opticheck/pages/home_page/home_page_landscape.dart';
-import 'package:opticheck/pages/result_page/acuity_result_page.dart';
+import 'package:opticheck/pages/instruction_pages/colorblind_instruction_page.dart';
+import 'package:opticheck/pages/instruction_pages/contrast_instruction_page.dart';
+import 'package:opticheck/pages/instruction_pages/landscape_colorblind_instruction_page.dart';
+import 'package:opticheck/pages/instruction_pages/landscape_contrast_instruction_page.dart';
+import 'package:opticheck/pages/result_page/acuity_result_page/acuity_result_page.dart';
+import 'package:opticheck/pages/result_page/acuity_result_page/landscape_acuity_result_page.dart';
 import 'package:opticheck/pages/result_page/colorblind_result_page/colorblind_result_page.dart';
 import 'package:opticheck/pages/result_page/colorblind_result_page/landscape_colorblind_result_page.dart';
 import 'package:opticheck/pages/result_page/contrast_result_page/contrast_result_page.dart';
@@ -122,10 +128,11 @@ class MyApp extends StatelessWidget {
 
         '/bluetoothpage': (context) => const BluetoothPage(),
 
-
 //result pages
         '/acuityresultpage': (context) => ResultPageMain(pages: [
-              AcuityResultPage(),
+              ResponsiveLayout(
+                  mobileBody: AcuityResultPage(),
+                  landscapeBody: LandscapeAcuityResultPage()),
               ResponsiveLayout(
                   mobileBody: ContrastResultPage(),
                   landscapeBody: LandscapeContrastResultPage()),
@@ -141,27 +148,40 @@ class MyApp extends StatelessWidget {
               ResponsiveLayout(
                   mobileBody: ColorblindResultPage(),
                   landscapeBody: LandscapeColorblindResultPage()),
-              AcuityResultPage(),
+              ResponsiveLayout(
+                  mobileBody: AcuityResultPage(),
+                  landscapeBody: LandscapeAcuityResultPage()),
             ]),
 
         '/colorblindresultpage': (context) => ResultPageMain(pages: [
-          ResponsiveLayout(
+              ResponsiveLayout(
                   mobileBody: ColorblindResultPage(),
                   landscapeBody: LandscapeColorblindResultPage()),
-              AcuityResultPage(),
+              ResponsiveLayout(
+                  mobileBody: AcuityResultPage(),
+                  landscapeBody: LandscapeAcuityResultPage()),
               ResponsiveLayout(
                   mobileBody: ContrastResultPage(),
                   landscapeBody: LandscapeContrastResultPage()),
             ]),
 
+//instruction pages
+        '/colorblindinstructionpage': (context) => ResponsiveLayout(
+              mobileBody: ColorblindInstructionPage(),
+              landscapeBody: LandscapeColorblindInstructionPage(),
+            ),
+        '/contrastinstructionpage': (context) => ResponsiveLayout(
+              mobileBody: ContrastInstructionPage(),
+              landscapeBody: LandscapeContrastInstructionPage(),
+            ),
 
 //test pages
-        '/contrastpage': (context) =>
+        '/contrasttestpage': (context) =>
             ChangeNotifierProvider<ContrastTestLogicController>(
               create: (_) => ContrastTestLogicController(context),
               child: ResponsiveLayout(
                 mobileBody: ContrastTestPortrait(),
-                landscapeBody: ContrastTestPortrait(),
+                landscapeBody: ContrastTestLandscape(),
               ),
             ),
         '/colorblindtestpage': (context) =>

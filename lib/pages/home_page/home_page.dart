@@ -2,17 +2,11 @@ import 'dart:async';
 // import 'dart:math';
 // import 'dart:ui_web';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:opticheck/common/global/global.dart';
 // import 'package:opticheck/pages/bluetooth_page.dart';
-import 'package:opticheck/pages/selection_page/selection_page.dart';
-import 'package:opticheck/pages/selection_page/selection_page_landscape.dart';
-import 'package:opticheck/common/responsive/responsive.dart';
 import 'package:opticheck/utils/primary_button.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

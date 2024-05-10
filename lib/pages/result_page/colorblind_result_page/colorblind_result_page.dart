@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:opticheck/common/global/data_model.dart';
 import 'package:opticheck/common/global/global.dart';
-import 'package:opticheck/common/global/data_model.dart';
 import 'package:opticheck/utils/large_glass_box.dart';
 import 'package:provider/provider.dart';
 
@@ -120,13 +119,13 @@ Widget _buildEyeIconAndStatus(
     case 'red':
       statusText = 'Category: Protanopia or Deuteranopia';
       descText =
-          'You might have "Total red-green" color blindness. Protanopia is the inability to see the color red at all, while deuteranopiais is the inability to see the color green. Both conditions can impact tasks like reading traffic lights or identifying certain colors accurately. You are adviced to get this checked';
+          'You could be experiencing "Total red-green" color blindness. Protanopia means no ability to see red, while deuteranopia means no ability to see green. These conditions can affect tasks like reading traffic lights or recognizing colors accurately. Its advisable to get checked.';
       eyeIcon = Image.asset(BadcolorBlindEyeIcon);
       break;
     case 'amber':
       statusText = 'Category: Protanomaly or Deuteranomaly';
       descText =
-          'You might have "Partial red-green" color blindness. Affecting the perception of red and green hues. Protanomaly makes it difficult to see the color red properly. Deuteranomaly affects green perception. Individuals with these conditions may have trouble distinguishing between certain shades of red and green. You are adviced to get this checked';
+          'You may be experiencing "Partial red-green" color blindness, which impacts the perception of red and green hues. Protanomaly can cause challenges in seeing red accurately, while Deuteranomaly affects green perception. People with these conditions might find it difficult to differentiate between specific shades of red and green. Its recommended that you have this checked.';
       eyeIcon = Image.asset(OkcolorBlindEyeIcon);
       break;
     case 'green':

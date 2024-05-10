@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:opticheck/common/global/global.dart';
-import 'package:opticheck/pages/result_page/acuity_result_page.dart';
-import 'package:opticheck/pages/result_page/colorblind_result_page/colorblind_result_page.dart';
-import 'package:opticheck/pages/result_page/colorblind_result_page/landscape_colorblind_result_page.dart';
-import 'package:opticheck/pages/result_page/contrast_result_page/contrast_result_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:opticheck/common/responsive/responsive.dart';
 
 class ResultPageMain extends StatelessWidget {
   ResultPageMain({super.key, required this.pages});

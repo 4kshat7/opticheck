@@ -13,6 +13,7 @@ const String logoIconImage = 'lib/assets/images/opticheck_icon.png';
 const String bluetoothLogo = 'lib/assets/images/bluetooth.png';
 const String motherboardLogo = 'lib/assets/images/motherboard.png';
 const String sensorLogo = 'lib/assets/images/sensor.png';
+const String sensorWave = 'lib/assets/images/sensor_wave.png';
 
 const String analysisIcon = 'lib/assets/images/analysis.png';
 const String analysisIconYellow = 'lib/assets/images/analysis_yellow.png';
@@ -32,11 +33,18 @@ const String Resultpage_bg = 'lib/assets/images/opticheck_result_bg.jpg';
 const String Resultpage_bg2 = 'lib/assets/images/opticheck_result_bg2.jpg';
 
 const String eyeGoodIcon = 'lib/assets/images/eye_good.png';
+const String eyeBadIcon = 'lib/assets/images/eye_Bad.png';
+const String okstar = 'lib/assets/images/ok_star.png';
+const String eyeAngle = 'lib/assets/images/eye-angle-white.png';
 
 const String dropperIcon = 'lib/assets/images/dropper.png';
 const String goodcontrast = 'lib/assets/images/good_contrast2.png';
 const String okcontrast = 'lib/assets/images/ok_contrast.png';
 const String badcontrast = 'lib/assets/images/bad_contrast.png';
+
+const String colorBlindInstruction =
+    'lib/assets/images/colorblindinstruction.png';
+const String contrastinstruction = 'lib/assets/images/contrastinstruction.png';
 
 final player = AudioPlayer();
 
@@ -129,11 +137,11 @@ double calculateBoxSize(BuildContext context) {
 }
 
 const String VAinfo =
-    'Measures how clearly you can see at a distance.\nResults in a fraction (e.g., 20/20), higher is better.';
+    'This will measure the sharpness of your vision by asking you to identify letters or symbols of different sizes on a chart from a dynamic distance.';
 const String VCinfo =
-    'Checks your ability to distinguish objects from their background.\nIndicates the smallest contrast level you can detect.';
+    'This will assess your ability to distinguish between different shades of gray by displaying a series of images with varying levels of contrast between light and dark areas.';
 const String CBinfo =
-    'Assesses your ability to perceive and differentiate colors accurately.\nDetermines if you have difficulty distinguishing certain colors.';
+    'This will evaluate your ability to discern colors by presenting you with a series of plates containing colored dots, some of which form numbers or patterns that are visible only to those with normal color vision.';
 
 // // COLORBLIND TEST PAGE
 

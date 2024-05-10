@@ -11,7 +11,7 @@ class LargeTappableArea extends StatelessWidget {
   final String? bottomRightImageData;
   final IconData? bottomLeftIconData;
   final double? MainTextFontSize;
-  double? NoneTextFontSize;
+  final double? NoneTextFontSize;
   final Color color;
 
   LargeTappableArea(

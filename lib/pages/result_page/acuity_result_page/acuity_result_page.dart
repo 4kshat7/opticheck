@@ -5,26 +5,26 @@ import 'package:opticheck/common/global/global.dart';
 import 'package:opticheck/utils/large_glass_box.dart';
 import 'package:provider/provider.dart';
 
-class ContrastResultPage extends StatefulWidget {
-  const ContrastResultPage({super.key});
+class AcuityResultPage extends StatefulWidget {
+  const AcuityResultPage({super.key});
 
   @override
-  State<ContrastResultPage> createState() => _ContrastResultPageState();
+  State<AcuityResultPage> createState() => _AcuityResultPageState();
 }
 
-class _ContrastResultPageState extends State<ContrastResultPage> {
+class _AcuityResultPageState extends State<AcuityResultPage> {
   String status = '';
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ResultDataModel>(builder: (context, value, child) {
-      if (value.correctContrastPlatesCount != 0 &&
-          value.correctContrastPlatesCount <= 8) {
+      if (value.correctAcuityPlateCount != 0 &&
+          value.correctAcuityPlateCount <= 8) {
         status = 'red';
-      } else if (value.correctContrastPlatesCount > 8 &&
-          value.correctContrastPlatesCount < 10) {
+      } else if (value.correctAcuityPlateCount > 8 &&
+          value.correctAcuityPlateCount < 10) {
         status = 'amber';
-      } else if (value.correctContrastPlatesCount >= 10) {
+      } else if (value.correctAcuityPlateCount >= 10) {
         status = 'green';
       }
 
@@ -33,7 +33,7 @@ class _ContrastResultPageState extends State<ContrastResultPage> {
         appBar: AppBar(
           backgroundColor: AppBarColorUtil.getAppBarColor(status),
           title: Text(
-            'Contrast Results',
+            'Acuity Results',
             style: TextStyle(
               // color: Colors.amber.shade600,
               fontSize: calculateFontSize(context),
@@ -79,7 +79,7 @@ class _ContrastResultPageState extends State<ContrastResultPage> {
               ),
             ),
             _buildEyeIconAndStatus(
-                context, status, value.correctContrastPlatesCount),
+                context, status, value.correctAcuityPlateCount),
           ],
         ),
       );
@@ -96,29 +96,25 @@ Widget _buildEyeIconAndStatus(
 
   switch (status) {
     case 'red':
-      statusText = 'Visual Impairment';
-      descText =
-          'our results indicate poor vision contrast. You may struggle to distinguish between different shades of gray, which could affect your ability to perceive details in images or visual stimuli.';
-      eyeIcon = Image.asset(badcontrast);
+      statusText = 'kharab ';
+      descText = 'eye kharab hai';
+      eyeIcon = Image.asset(eyeBadIcon);
       break;
     case 'amber':
-      statusText = 'Mild Visual Impairment';
-      descText =
-          'Your vision contrast test results suggest an average ability to discern between different shades of gray. While you may encounter some difficulty in distinguishing subtle contrasts, your vision should generally allow you to perceive visual details adequately.';
-      eyeIcon = Image.asset(okcontrast);
+      statusText = 'theek theek';
+      descText = 'teri eye theek hai';
+      eyeIcon = Image.asset(okstar);
       break;
     case 'green':
-      statusText = 'Normal Vision Contrast';
-      descText =
-          'Congratulations! Your vision contrast test results indicate excellent contrast sensitivity. You possess a keen ability to distinguish between various shades of gray, enabling you to perceive visual details with precision and clarity.';
+      statusText = 'bhadiya';
+      descText = 'teri eye bhadiya hai ';
 
-      eyeIcon = Image.asset(goodcontrast);
+      eyeIcon = Image.asset(eyeGoodIcon);
       break;
     default:
       statusText = 'No Result';
-      descText =
-          'Take the Contrast test to determine which category best describes your contrast vision.';
-      eyeIcon = Image.asset(dropperIcon);
+      descText = 'Take the Acuity test to determine your distance vision.';
+      eyeIcon = Image.asset(eyeAngle);
   }
 
   return Column(

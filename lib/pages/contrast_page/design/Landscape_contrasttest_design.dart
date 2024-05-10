@@ -5,8 +5,8 @@ import 'package:opticheck/pages/contrast_page/logic/contrasttest_logic.dart';
 import 'package:opticheck/utils/interactive_circle.dart';
 import 'package:provider/provider.dart';
 
-class ContrastTestPortrait extends StatelessWidget {
-  const ContrastTestPortrait({super.key});
+class ContrastTestLandscape extends StatelessWidget {
+  const ContrastTestLandscape({super.key});
   @override
   Widget build(BuildContext context) {
     return Consumer<ContrastTestLogicController>(
@@ -46,7 +46,7 @@ class ContrastTestPortrait extends StatelessWidget {
                 children: [
                   InteractiveCircle(
                     segments: 8,
-                    size: calculateInteractiveCircleSize(context) / 1.2,
+                    size: calculateInteractiveCircleSize(context) / 1.7,
                     onTap: (segmentIndex) {
                       controller.nextPlate(context, segmentIndex, 0);
                       // print("Segment $segmentIndex tapped");

@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:opticheck/common/global/data_model.dart';
 import 'package:opticheck/common/global/global.dart';
 import 'package:opticheck/utils/back_icons.dart';
 import 'package:opticheck/utils/large_tap_box.dart';
+import 'package:provider/provider.dart';
 
 class SelectionPage extends StatefulWidget {
   const SelectionPage({super.key});
@@ -13,7 +15,7 @@ class SelectionPage extends StatefulWidget {
 
 class _SelectionPageState extends State<SelectionPage> {
   bool _isAnimationCompleted = false;
-  bool _isResult = true;
+  bool _isResult = false;
 
   @override
   void initState() {
@@ -28,6 +30,12 @@ class _SelectionPageState extends State<SelectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Update _isResult based on correctPlatesCount and correctContrastPlatesCount
+    ResultDataModel resultDataModel = Provider.of<ResultDataModel>(context);
+    _isResult = resultDataModel.correctPlatesCount > 0 ||
+        resultDataModel.correctContrastPlatesCount > 0 ||
+        resultDataModel.correctAcuityPlateCount > 0;
+
     return Scaffold(
         backgroundColor: globalBackgroundColor,
         appBar: AppBar(
@@ -159,7 +167,7 @@ class _SelectionPageState extends State<SelectionPage> {
                   bottomRightImageData: 'lib/assets/images/opticheck_nobg.png',
                   onTapAction: () {
                     // print('Second box tapped!');
-                    Navigator.pushNamed(context, '/contrastpage');
+                    Navigator.pushNamed(context, '/contrastinstructionpage');
                   },
                 ),
               ),
@@ -179,7 +187,7 @@ class _SelectionPageState extends State<SelectionPage> {
                   infoText: CBinfo,
                   bottomRightImageData: 'lib/assets/images/opticheck_nobg.png',
                   onTapAction: () {
-                    Navigator.pushNamed(context, '/colorblindtestpage');
+                    Navigator.pushNamed(context, '/colorblindinstructionpage');
                     // print('Third box tapped!');
                   },
                 ),

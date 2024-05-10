@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:opticheck/common/global/data_model.dart';
 import 'package:opticheck/common/global/global.dart';
-import 'package:opticheck/pages/result_page/result_page_main.dart';
 import 'package:opticheck/utils/back_icons.dart';
 import 'package:opticheck/utils/large_tap_box.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class LandscapeSelectionPage extends StatefulWidget {
   const LandscapeSelectionPage({Key? key}) : super(key: key);
@@ -14,6 +14,7 @@ class LandscapeSelectionPage extends StatefulWidget {
 
 class _LandscapeSelectionPageState extends State<LandscapeSelectionPage> {
   bool _isAnimationCompleted = false;
+  bool _isResult = false;
 
   @override
   void initState() {
@@ -28,6 +29,11 @@ class _LandscapeSelectionPageState extends State<LandscapeSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    ResultDataModel resultDataModel = Provider.of<ResultDataModel>(context);
+    _isResult = resultDataModel.correctPlatesCount > 0 ||
+        resultDataModel.correctContrastPlatesCount > 0 ||
+        resultDataModel.correctAcuityPlateCount > 0;
+
     return Scaffold(
       backgroundColor: globalBackgroundColor,
       appBar: AppBar(
@@ -68,7 +74,7 @@ class _LandscapeSelectionPageState extends State<LandscapeSelectionPage> {
                 width: calculateIconSize(context),
                 height: calculateIconSize(context),
                 child: Image.asset(
-                  'lib/assets/images/analysis.png',
+                  _isResult ? analysisIconYellow : analysisIcon,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -135,7 +141,8 @@ class _LandscapeSelectionPageState extends State<LandscapeSelectionPage> {
                         bottomRightImageData:
                             'lib/assets/images/opticheck_nobg.png',
                         onTapAction: () {
-                          print('Second box tapped!');
+                          Navigator.pushNamed(
+                              context, '/contrastinstructionpage');
                         },
                       ),
                     ),
@@ -163,7 +170,8 @@ class _LandscapeSelectionPageState extends State<LandscapeSelectionPage> {
                         bottomRightImageData:
                             'lib/assets/images/opticheck_nobg.png',
                         onTapAction: () {
-                          Navigator.pushNamed(context, '/colorblindtestpage');
+                          Navigator.pushNamed(
+                              context, '/colorblindinstructionpage');
                         },
                       ),
                     ),
