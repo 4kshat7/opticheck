@@ -1,32 +1,36 @@
-import 'dart:async';
-import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:flutter/foundation.dart';
 
-class BluetoothManager {
-  static final BluetoothManager _instance = BluetoothManager._internal();
+class BluetoothStateNotifier extends ChangeNotifier {
+  BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
 
-  factory BluetoothManager() {
-    return _instance;
+  BluetoothStateNotifier() {
+    _initialize();
   }
 
-  BluetoothManager._internal();
+  BluetoothState get bluetoothState => _bluetoothState;
 
-  BluetoothConnection? connection;
-  StreamController<double>? _streamController;
+  void _initialize() async {
+    // Get initial state
+    _bluetoothState = await FlutterBluetoothSerial.instance.state;
+    notifyListeners();
 
-  Stream<double>? get distanceStream => _streamController?.stream;
-
-  void initStream() {
-    _streamController?.close();
-    _streamController = StreamController<double>.broadcast();
-    connection?.input?.listen((Uint8List data) {
-      double newDist = double.tryParse(utf8.decode(data)) ?? 0.00;
-      _streamController?.add(newDist);
-    }).onDone(() {
-      _streamController?.close();
+    // Listen for state changes
+    FlutterBluetoothSerial.instance
+        .onStateChanged()
+        .listen((BluetoothState state) {
+      _bluetoothState = state;
+      notifyListeners();
     });
   }
 
-  Future<bool> get isConnected async => connection?.isConnected ?? false;
+  Future<void> requestEnable() async {
+    final result = await FlutterBluetoothSerial.instance.requestEnable();
+    if (result == true) {
+      _bluetoothState = BluetoothState.STATE_ON;
+    } else {
+      _bluetoothState = BluetoothState.STATE_OFF;
+    }
+    notifyListeners();
+  }
 }

@@ -70,16 +70,33 @@ class LargeGlassBox extends StatelessWidget {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (imagePath != null)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Image.asset(
-                      imagePath!,
-                      width: calculateIconSize(context) * 2.5,
-                      height: calculateIconSize(context) * 2.5,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                // if (imagePath != null)
+                //   Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //       children: [
+                //         Padding(
+                //           padding: const EdgeInsets.only(bottom: 8.0),
+                //           child: Image.asset(
+                //             imagePath!,
+                //             width: calculateIconSize(context) * 1.5,
+                //             height: calculateIconSize(context) * 1.5,
+                //             // fit: BoxFit.cover,
+                //           ),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.only(bottom: 8.0),
+                //           child: Image.asset(
+                //             imagePath!,
+                //             width: calculateIconSize(context) * 1.5,
+                //             height: calculateIconSize(context) * 1.5,
+                //             // fit: BoxFit.cover,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
                 Container(
                   width: double
                       .infinity, // Ensures the container takes all available width

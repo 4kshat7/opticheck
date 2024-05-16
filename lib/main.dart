@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:opticheck/common/global/bluetooth_state_class.dart';
 import 'package:opticheck/common/global/data_model.dart';
 import 'package:opticheck/common/global/global.dart';
+import 'package:opticheck/pages/acuity_page/design/Landscape_acuitytest_design.dart';
+import 'package:opticheck/pages/acuity_page/design/portrait_acuitytest_design.dart';
+import 'package:opticheck/pages/acuity_page/logic/acuitytest_logic.dart';
 import 'package:opticheck/pages/bluetooth_page/bluetooth_page.dart';
+import 'package:opticheck/pages/bluetooth_page/bluetooth_pagenew.dart';
 import 'package:opticheck/pages/colorblind_page/design/Portrait_colorblindtest_design.dart';
-import 'package:opticheck/pages/colorblind_page/design/landscape_colorblindtest_design.dart';
+import 'package:opticheck/pages/colorblind_page/design/Landscape_colorblindtest_design.dart';
 import 'package:opticheck/pages/colorblind_page/logic/colorbindtest_logic.dart';
 import 'package:opticheck/pages/contrast_page/design/Landscape_contrasttest_design.dart';
 import 'package:opticheck/pages/contrast_page/design/Portrait_contrasttest_design.dart';
 import 'package:opticheck/pages/contrast_page/logic/contrasttest_logic.dart';
 import 'package:opticheck/pages/home_page/home_page.dart';
 import 'package:opticheck/pages/home_page/home_page_landscape.dart';
+import 'package:opticheck/pages/instruction_pages/acuity_instruction_page.dart';
 import 'package:opticheck/pages/instruction_pages/colorblind_instruction_page.dart';
 import 'package:opticheck/pages/instruction_pages/contrast_instruction_page.dart';
+import 'package:opticheck/pages/instruction_pages/landscape_acuity_instruction_page.dart';
 import 'package:opticheck/pages/instruction_pages/landscape_colorblind_instruction_page.dart';
 import 'package:opticheck/pages/instruction_pages/landscape_contrast_instruction_page.dart';
 import 'package:opticheck/pages/result_page/acuity_result_page/acuity_result_page.dart';
@@ -25,6 +32,9 @@ import 'package:opticheck/pages/result_page/result_page_main.dart';
 import 'package:opticheck/pages/selection_page/selection_page.dart';
 import 'package:opticheck/pages/selection_page/selection_page_landscape.dart';
 import 'package:opticheck/common/responsive/responsive.dart';
+import 'package:opticheck/pages/sensor_page.dart';
+import 'package:opticheck/utils/EyeCoverScreen.dart';
+import 'package:opticheck/utils/primary_button.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -45,22 +55,55 @@ Future<void> requestBluetoothPermissions() async {
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ResultDataModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ResultDataModel()),
+        ChangeNotifierProvider(create: (context) => BluetoothStateNotifier()),
+      ],
       child: const MyApp(),
     ),
   );
   // runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Future<bool?> _bluetoothEnabledFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      requestBluetoothPermissions();
+    });
+    _bluetoothEnabledFuture = FlutterBluetoothSerial.instance.requestEnable();
+  }
+
+  Future<void> _retryEnableBluetooth() async {
+    final result = await FlutterBluetoothSerial.instance.requestEnable();
+    setState(() {
+      _bluetoothEnabledFuture = Future.value(result);
+    });
+  }
+
+  Future<void> _bypassBluetooth() async {
+    setState(() {
+      _bluetoothEnabledFuture = Future.value(true);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       requestBluetoothPermissions();
     });
+    final sensorConnection = Provider.of<ResultDataModel>(context).connection;
     return MaterialApp(
       title: 'OptiCheck',
       theme: ThemeData(
@@ -68,9 +111,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
-      home: FutureBuilder(
+      home: FutureBuilder<bool?>(
         // Request Bluetooth to be enabled
-        future: FlutterBluetoothSerial.instance.requestEnable(),
+        future: _bluetoothEnabledFuture,
         builder: (context, snapshot) {
           // Corrected the conditional logic based on connection state
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -90,18 +133,43 @@ class MyApp extends StatelessWidget {
               );
             } else {
               // User did not enable Bluetooth or an error occurred
-              return ResponsiveLayout(
-                mobileBody: HomePage(),
-                landscapeBody: LandscapeHomePage(),
-              );
-              //     Scaffold(
-              //   body: Center(
-              //     child: Text(
-              //       'Bluetooth is not enabled. Please enable Bluetooth to use the app.',
-              //       style: TextStyle(fontSize: 20, color: globalPrimaryColor),
-              //     ),
-              //   ),
+              // return ResponsiveLayout(
+              //   mobileBody: HomePage(),
+              //   landscapeBody: LandscapeHomePage(),
               // );
+              return Scaffold(
+                body: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          'Bluetooth is not enabled. Please enable Bluetooth to use the app.',
+                          style: TextStyle(
+                              fontSize: 20, color: globalPrimaryColor),
+                        ),
+                      ),
+                      PrimaryButton(
+                          buttonText: 'Retry',
+                          onPressed: _retryEnableBluetooth),
+                      ElevatedButton(
+                        onPressed: _bypassBluetooth,
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                globalTertiaryColor.withOpacity(0.5)
+                            // padding: const EdgeInsets.symmetric(
+                            //     horizontal: 32, vertical: 16),
+                            ),
+                        child: const Text(
+                          'bypass',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
             }
           } else {
             // Handle error or other states
@@ -113,6 +181,7 @@ class MyApp extends StatelessWidget {
           }
         },
       ),
+      
       // initialRoute: '/homePage',
       routes: {
         '/homepage': (context) => ResponsiveLayout(
@@ -124,9 +193,10 @@ class MyApp extends StatelessWidget {
         //       mobileBody: SelectionPage(),
         //       landscapeBody: LandscapeSelectionPage(),
         //     ),
-        // '/sensorpage': (context) => SensorPage(connection: BluetoothManager().connection),
+        
+        '/sensorpage': (context) => SensorPage(connection: sensorConnection),
 
-        '/bluetoothpage': (context) => const BluetoothPage(),
+        '/bluetoothpage': (context) => const BluetoothPageNew(),
 
 //result pages
         '/acuityresultpage': (context) => ResultPageMain(pages: [
@@ -174,16 +244,65 @@ class MyApp extends StatelessWidget {
               mobileBody: ContrastInstructionPage(),
               landscapeBody: LandscapeContrastInstructionPage(),
             ),
+        '/acuityinstructionpage': (context) => ResponsiveLayout(
+              mobileBody: AcuityInstructionPage(),
+              landscapeBody: LandscapeAcuityInstructionPage(),
+            ),
+
+//eye cover
+        '/eyecoverleft': (context) =>
+            Eyecoverscreen(routeName: '/other', whichEye: 'left'),
+        'eyecoverright': (context) =>
+            Eyecoverscreen(routeName: '/other', whichEye: 'right'),
 
 //test pages
-        '/contrasttestpage': (context) =>
-            ChangeNotifierProvider<ContrastTestLogicController>(
-              create: (_) => ContrastTestLogicController(context),
+
+        '/leftacuitytestpage': (context) =>
+            ChangeNotifierProvider<AcuitytestLogicController>(
+              create: (_) => AcuitytestLogicController(context, acuityPlates,
+                  whicheye: 'left'),
+              child: ResponsiveLayout(
+                mobileBody: AcuityTestPortrait(),
+                landscapeBody: AcuitytestLandscape(),
+              ),
+            ),
+
+        '/rightacuitytestpage': (context) =>
+            ChangeNotifierProvider<AcuitytestLogicController>(
+              create: (_) => AcuitytestLogicController(context, acuityPlates,
+                  whicheye: 'right'),
+              child: ResponsiveLayout(
+                mobileBody: AcuityTestPortrait(),
+                landscapeBody: AcuitytestLandscape(),
+              ),
+            ),
+
+        '/leftcontrasttestpage': (context) => MultiProvider(
+              providers: [
+                ChangeNotifierProvider<ContrastTestLogicController>(
+                  create: (_) =>
+                      ContrastTestLogicController(context, whicheye: 'left'),
+                ),
+              ],
               child: ResponsiveLayout(
                 mobileBody: ContrastTestPortrait(),
                 landscapeBody: ContrastTestLandscape(),
               ),
             ),
+
+        '/rightcontrasttestpage': (context) => MultiProvider(
+              providers: [
+                ChangeNotifierProvider<ContrastTestLogicController>(
+                  create: (_) =>
+                      ContrastTestLogicController(context, whicheye: 'right'),
+                ),
+              ],
+              child: ResponsiveLayout(
+                mobileBody: ContrastTestPortrait(),
+                landscapeBody: ContrastTestLandscape(),
+              ),
+            ),
+
         '/colorblindtestpage': (context) =>
             ChangeNotifierProvider<ColorblindTestLogicController>(
               create: (_) => ColorblindTestLogicController(context),
@@ -193,6 +312,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
       },
+
 //animated transition pages
       onGenerateRoute: (settings) {
         switch (settings.name) {

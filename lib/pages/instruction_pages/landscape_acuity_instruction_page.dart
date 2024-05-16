@@ -4,8 +4,8 @@ import 'package:opticheck/utils/EyeCoverScreen.dart';
 import 'package:opticheck/utils/back_icons.dart';
 import 'package:opticheck/utils/primary_button.dart';
 
-class LandscapeContrastInstructionPage extends StatelessWidget {
-  const LandscapeContrastInstructionPage({super.key});
+class LandscapeAcuityInstructionPage extends StatelessWidget {
+  const LandscapeAcuityInstructionPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class LandscapeContrastInstructionPage extends StatelessWidget {
               child: Container(
                   width: calculateLogoSize(context) / 1.2,
                   height: calculateLogoSize(context) / 1.2,
-                  child: Image.asset(contrastinstruction)),
+                  child: Image.asset(acuityinstruction)),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -82,11 +82,11 @@ class LandscapeContrastInstructionPage extends StatelessWidget {
                   // padding: EdgeInsets.symmetric(
                   //     horizontal: 16.0), // Adjust padding as needed
                   child: Text(
-                    "You'll see a circle divided into eight sections. Tap the segment of the circle where you see a visible gap. With each round, the smaller circle will become progressively lighter in shades of grey. Each eye will be evaluated individually.",
+                    "You will be shown a letter on the screen. Please choose the corresponding option from the four choices displayed below. if you answer incorrectly more than twice, your score will be evaluated automatically for each eye.",
                     // textAlign: TextAlign.center,
                     textAlign: TextAlign.justify,
                     style: TextStyle(
-                        fontSize: calculateFontSize(context) / 1.3,
+                        fontSize: calculateFontSize(context) / 1.2,
                         fontWeight: globalFontWeight,
                         color: globalPrimaryColor),
                     // softWrap: true,
@@ -100,7 +100,7 @@ class LandscapeContrastInstructionPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Eyecoverscreen(
-                                  routeName: '/leftcontrasttestpage',
+                                  routeName: '/leftacuitytestpage',
                                   whichEye: 'left')));
                     }),
               ],

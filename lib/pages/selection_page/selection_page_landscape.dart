@@ -31,8 +31,8 @@ class _LandscapeSelectionPageState extends State<LandscapeSelectionPage> {
   Widget build(BuildContext context) {
     ResultDataModel resultDataModel = Provider.of<ResultDataModel>(context);
     _isResult = resultDataModel.correctPlatesCount > 0 ||
-        resultDataModel.correctContrastPlatesCount > 0 ||
-        resultDataModel.correctAcuityPlateCount > 0;
+        resultDataModel.correctLeftContrastPlatesCount > 0 ||
+        resultDataModel.correctLeftAcuityPlateCount > 0;
 
     return Scaffold(
       backgroundColor: globalBackgroundColor,
@@ -113,7 +113,8 @@ class _LandscapeSelectionPageState extends State<LandscapeSelectionPage> {
                         bottomRightImageData:
                             'lib/assets/images/opticheck_nobg.png',
                         onTapAction: () {
-                          Navigator.pushNamed(context, '/bluetoothpage');
+                          Navigator.pushNamed(
+                              context, '/acuityinstructionpage');
                         },
                       ),
                     ),

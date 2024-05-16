@@ -33,8 +33,8 @@ class _SelectionPageState extends State<SelectionPage> {
     // Update _isResult based on correctPlatesCount and correctContrastPlatesCount
     ResultDataModel resultDataModel = Provider.of<ResultDataModel>(context);
     _isResult = resultDataModel.correctPlatesCount > 0 ||
-        resultDataModel.correctContrastPlatesCount > 0 ||
-        resultDataModel.correctAcuityPlateCount > 0;
+        resultDataModel.correctLeftContrastPlatesCount > 0 ||
+        resultDataModel.correctLeftAcuityPlateCount > 0;
 
     return Scaffold(
         backgroundColor: globalBackgroundColor,
@@ -146,7 +146,7 @@ class _SelectionPageState extends State<SelectionPage> {
                   infoText: VAinfo,
                   bottomRightImageData: 'lib/assets/images/opticheck_nobg.png',
                   onTapAction: () {
-                    Navigator.pushNamed(context, '/bluetoothpage');
+                    Navigator.pushNamed(context, '/acuityinstructionpage');
                   },
                 ),
               ),

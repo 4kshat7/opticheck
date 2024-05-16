@@ -55,7 +55,7 @@ class LandscapeColorblindInstructionPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.all(10.0),
               child: Container(
                   width: calculateLogoSize(context) / 1.2,
                   height: calculateLogoSize(context) / 1.2,

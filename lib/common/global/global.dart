@@ -2,6 +2,7 @@ library globals;
 
 import "package:audioplayers/audioplayers.dart";
 import "package:flutter/material.dart";
+import "package:opticheck/utils/AcuityPlate.dart";
 import "package:opticheck/utils/IshiharaPlate.dart";
 import "package:opticheck/utils/landoltPlate.dart";
 
@@ -33,7 +34,7 @@ const String Resultpage_bg = 'lib/assets/images/opticheck_result_bg.jpg';
 const String Resultpage_bg2 = 'lib/assets/images/opticheck_result_bg2.jpg';
 
 const String eyeGoodIcon = 'lib/assets/images/eye_good.png';
-const String eyeBadIcon = 'lib/assets/images/eye_Bad.png';
+const String eyeBadIcon = 'lib/assets/images/eye_bad.png';
 const String okstar = 'lib/assets/images/ok_star.png';
 const String eyeAngle = 'lib/assets/images/eye-angle-white.png';
 
@@ -42,9 +43,19 @@ const String goodcontrast = 'lib/assets/images/good_contrast2.png';
 const String okcontrast = 'lib/assets/images/ok_contrast.png';
 const String badcontrast = 'lib/assets/images/bad_contrast.png';
 
+//instructions images
 const String colorBlindInstruction =
     'lib/assets/images/colorblindinstruction.png';
 const String contrastinstruction = 'lib/assets/images/contrastinstruction.png';
+const String acuityinstruction = 'lib/assets/images/acuitytestinstructions.png';
+
+const String lefteyecover = 'lib/assets/images/eyecover_left.png';
+const String righteyecover = 'lib/assets/images/eyecover_right.png';
+
+//state eyes
+const String badeyestate = 'lib/assets/images/bad_eye_state.png';
+const String okeyestate = 'lib/assets/images/ok_eye_state.png';
+const String goodeyestate = 'lib/assets/images/good_eye_state.png';
 
 final player = AudioPlayer();
 
@@ -216,6 +227,80 @@ final List<Landoltplate> landoltPlates = [
   Landoltplate(imagePath: landolt_BL, correctLabel: 6),
   Landoltplate(imagePath: landolt_L, correctLabel: 7),
   Landoltplate(imagePath: landolt_UL, correctLabel: 8),
+];
+
+// // ACUITY PLATES
+final List<Acuityplate> acuityPlates = [
+  Acuityplate(letter: 'H', logMARValue: 1.0, fontSizeMm: 69.7),
+  Acuityplate(letter: 'V', logMARValue: 1.0, fontSizeMm: 69.7),
+  Acuityplate(letter: 'Z', logMARValue: 1.0, fontSizeMm: 69.7),
+  Acuityplate(letter: 'D', logMARValue: 1.0, fontSizeMm: 69.7),
+  Acuityplate(letter: 'S', logMARValue: 1.0, fontSizeMm: 69.7),
+  Acuityplate(letter: 'N', logMARValue: 0.9, fontSizeMm: 55.3),
+  Acuityplate(letter: 'C', logMARValue: 0.9, fontSizeMm: 55.3),
+  Acuityplate(letter: 'V', logMARValue: 0.9, fontSizeMm: 55.3),
+  Acuityplate(letter: 'K', logMARValue: 0.9, fontSizeMm: 55.3),
+  Acuityplate(letter: 'D', logMARValue: 0.9, fontSizeMm: 55.3),
+  Acuityplate(letter: 'C', logMARValue: 0.8, fontSizeMm: 43.9),
+  Acuityplate(letter: 'Z', logMARValue: 0.8, fontSizeMm: 43.9),
+  Acuityplate(letter: 'S', logMARValue: 0.8, fontSizeMm: 43.9),
+  Acuityplate(letter: 'H', logMARValue: 0.8, fontSizeMm: 43.9),
+  Acuityplate(letter: 'N', logMARValue: 0.8, fontSizeMm: 43.9),
+  Acuityplate(letter: 'O', logMARValue: 0.7, fontSizeMm: 34.9),
+  Acuityplate(letter: 'N', logMARValue: 0.7, fontSizeMm: 34.9),
+  Acuityplate(letter: 'V', logMARValue: 0.7, fontSizeMm: 34.9),
+  Acuityplate(letter: 'S', logMARValue: 0.7, fontSizeMm: 34.9),
+  Acuityplate(letter: 'R', logMARValue: 0.7, fontSizeMm: 34.9),
+  Acuityplate(letter: 'K', logMARValue: 0.6, fontSizeMm: 27.7),
+  Acuityplate(letter: 'D', logMARValue: 0.6, fontSizeMm: 27.7),
+  Acuityplate(letter: 'N', logMARValue: 0.6, fontSizeMm: 27.7),
+  Acuityplate(letter: 'R', logMARValue: 0.6, fontSizeMm: 27.7),
+  Acuityplate(letter: 'O', logMARValue: 0.6, fontSizeMm: 27.7),
+  Acuityplate(letter: 'Z', logMARValue: 0.5, fontSizeMm: 22.0),
+  Acuityplate(letter: 'K', logMARValue: 0.5, fontSizeMm: 22.0),
+  Acuityplate(letter: 'C', logMARValue: 0.5, fontSizeMm: 22.0),
+  Acuityplate(letter: 'S', logMARValue: 0.5, fontSizeMm: 22.0),
+  Acuityplate(letter: 'V', logMARValue: 0.5, fontSizeMm: 22.0),
+  Acuityplate(letter: 'D', logMARValue: 0.4, fontSizeMm: 17.5),
+  Acuityplate(letter: 'V', logMARValue: 0.4, fontSizeMm: 17.5),
+  Acuityplate(letter: 'O', logMARValue: 0.4, fontSizeMm: 17.5),
+  Acuityplate(letter: 'H', logMARValue: 0.4, fontSizeMm: 17.5),
+  Acuityplate(letter: 'C', logMARValue: 0.4, fontSizeMm: 17.5),
+  Acuityplate(letter: 'O', logMARValue: 0.3, fontSizeMm: 13.9),
+  Acuityplate(letter: 'H', logMARValue: 0.3, fontSizeMm: 13.9),
+  Acuityplate(letter: 'V', logMARValue: 0.3, fontSizeMm: 13.9),
+  Acuityplate(letter: 'C', logMARValue: 0.3, fontSizeMm: 13.9),
+  Acuityplate(letter: 'K', logMARValue: 0.3, fontSizeMm: 13.9),
+  Acuityplate(letter: 'H', logMARValue: 0.2, fontSizeMm: 11.0),
+  Acuityplate(letter: 'Z', logMARValue: 0.2, fontSizeMm: 11.0),
+  Acuityplate(letter: 'C', logMARValue: 0.2, fontSizeMm: 11.0),
+  Acuityplate(letter: 'K', logMARValue: 0.2, fontSizeMm: 11.0),
+  Acuityplate(letter: 'O', logMARValue: 0.2, fontSizeMm: 11.0),
+  Acuityplate(letter: 'N', logMARValue: 0.1, fontSizeMm: 8.7),
+  Acuityplate(letter: 'C', logMARValue: 0.1, fontSizeMm: 8.7),
+  Acuityplate(letter: 'K', logMARValue: 0.1, fontSizeMm: 8.7),
+  Acuityplate(letter: 'H', logMARValue: 0.1, fontSizeMm: 8.7),
+  Acuityplate(letter: 'D', logMARValue: 0.1, fontSizeMm: 8.7),
+  Acuityplate(letter: 'Z', logMARValue: 0.0, fontSizeMm: 6.9),
+  Acuityplate(letter: 'H', logMARValue: 0.0, fontSizeMm: 6.9),
+  Acuityplate(letter: 'C', logMARValue: 0.0, fontSizeMm: 6.9),
+  Acuityplate(letter: 'S', logMARValue: 0.0, fontSizeMm: 6.9),
+  Acuityplate(letter: 'R', logMARValue: 0.0, fontSizeMm: 6.9),
+  Acuityplate(letter: 'S', logMARValue: -0.1, fontSizeMm: 5.5),
+  Acuityplate(letter: 'Z', logMARValue: -0.1, fontSizeMm: 5.5),
+  Acuityplate(letter: 'R', logMARValue: -0.1, fontSizeMm: 5.5),
+  Acuityplate(letter: 'D', logMARValue: -0.1, fontSizeMm: 5.5),
+  Acuityplate(letter: 'N', logMARValue: -0.1, fontSizeMm: 5.5),
+  Acuityplate(letter: 'S', logMARValue: -0.1, fontSizeMm: 5.5),
+  Acuityplate(letter: 'Z', logMARValue: -0.1, fontSizeMm: 5.5),
+  Acuityplate(letter: 'R', logMARValue: -0.1, fontSizeMm: 5.5),
+  Acuityplate(letter: 'D', logMARValue: -0.1, fontSizeMm: 5.5),
+  Acuityplate(letter: 'N', logMARValue: -0.1, fontSizeMm: 5.5),
+  Acuityplate(letter: 'R', logMARValue: -0.3, fontSizeMm: 3.5),
+  Acuityplate(letter: 'D', logMARValue: -0.3, fontSizeMm: 3.5),
+  Acuityplate(letter: 'O', logMARValue: -0.3, fontSizeMm: 3.5),
+  Acuityplate(letter: 'S', logMARValue: -0.3, fontSizeMm: 3.5),
+  Acuityplate(letter: 'N', logMARValue: -0.3, fontSizeMm: 3.5),
 ];
 
 // // RESULT PAGE

@@ -2,11 +2,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:opticheck/common/global/data_model.dart';
 import 'package:opticheck/common/global/global.dart';
+import 'package:opticheck/utils/EyeCoverScreen.dart';
 import 'package:opticheck/utils/landoltPlate.dart';
 import 'package:provider/provider.dart';
 
 class ContrastTestLogicController with ChangeNotifier {
   late ResultDataModel _resultDataModel;
+  final String whicheye;
   late List<Landoltplate> remainingLandoltPlates;
   late Landoltplate currentPlate;
   // List<int> labels = [];
@@ -17,7 +19,7 @@ class ContrastTestLogicController with ChangeNotifier {
   bool whichIcon = false;
   double iconOpacity = 0.0;
 
-  ContrastTestLogicController(context) {
+  ContrastTestLogicController(BuildContext context, {required this.whicheye}) {
     remainingLandoltPlates = List.from(landoltPlates);
     currentPlate = getNextPlate(context);
     // generateLabels(context);
@@ -50,8 +52,15 @@ class ContrastTestLogicController with ChangeNotifier {
     } else {
       whichIcon = false;
       iconOpacity = 1.0;
-      _resultDataModel
-          .updateCorrectContrastPlatesCount(correctContrastPlatesCount);
+
+      if (whicheye == 'left') {
+        _resultDataModel
+            .updateLeftCorrectContrastPlatesCount(correctContrastPlatesCount);
+      } else if (whicheye == 'right') {
+        _resultDataModel
+            .updateRightCorrectContrastPlatesCount(correctContrastPlatesCount);
+      }
+
       notifyListeners();
       Future.delayed(Duration(milliseconds: 300), () {
         iconOpacity = 0.0;
@@ -111,14 +120,30 @@ class ContrastTestLogicController with ChangeNotifier {
   // }
 
   void reset(context) {
-    _resultDataModel
-        .updateCorrectContrastPlatesCount(correctContrastPlatesCount);
+    if (whicheye == 'left') {
+      _resultDataModel
+          .updateLeftCorrectContrastPlatesCount(correctContrastPlatesCount);
+    } else if (whicheye == 'right') {
+      _resultDataModel
+          .updateRightCorrectContrastPlatesCount(correctContrastPlatesCount);
+    }
+
     correctContrastPlatesCount = 0;
     // remainingLandoltPlates = List.from(landoltPlates);
     // currentPlate = getNextPlate(context);
     // generateLabels(context);
     // labelColors.fillRange(0, 4, colorBlindTestButtonColor);
-    Navigator.pushNamed(context, '/contrastresultpage');
+    if (whicheye == 'left') {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Eyecoverscreen(
+                  routeName: '/rightcontrasttestpage', whichEye: 'right')));
+      ;
+    } else {
+      Navigator.pushNamed(context, '/contrastresultpage');
+    }
+
     greyshade = 1000;
     notifyListeners();
   }

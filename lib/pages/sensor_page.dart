@@ -8,9 +8,9 @@ import 'package:opticheck/common/global/global.dart';
 import 'package:flutter/foundation.dart';
 
 class SensorPage extends StatefulWidget {
-  final BluetoothConnection connection;
+  final BluetoothConnection? connection;
 
-  const SensorPage({Key? key, required this.connection}) : super(key: key);
+  const SensorPage({Key? key, this.connection}) : super(key: key);
 
   @override
   State<SensorPage> createState() => _SensorPageState();
@@ -29,9 +29,16 @@ class _SensorPageState extends State<SensorPage> {
     _startListening();
   }
 
+  // void _checkIfConnectionValid() {
+  //   if (widget.connection == null) {
+  //   } else {
+  //     _startListening();
+  //   }
+  // }
+
   void _startListening() {
     double prevDist = 0.00;
-    widget.connection.input!.listen((Uint8List data) {
+    widget.connection?.input!.listen((Uint8List data) {
       double newDist = double.tryParse(utf8.decode(data)) ?? 0.00;
       setState(() {
         display_data = double.tryParse(ascii.decode(data)) ?? 0.00;
@@ -56,8 +63,8 @@ class _SensorPageState extends State<SensorPage> {
   // }
 
   void _sendMessage(String message) async {
-    widget.connection.output.add(Uint8List.fromList(utf8.encode(message)));
-    await widget.connection.output.allSent;
+    widget.connection?.output.add(Uint8List.fromList(utf8.encode(message)));
+    await widget.connection?.output.allSent;
     if (message == 'O') {
       playerAudioFromPath('sensor_beep.mp3');
     }
