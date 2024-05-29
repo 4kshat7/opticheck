@@ -54,8 +54,7 @@ class _ContrastResultPageState extends State<ContrastResultPage> {
               child: GestureDetector(
                 onTap: () {
                   // Navigator.pop(context);
-                  Navigator.popUntil(
-                      context, ModalRoute.withName('/selectionPage'));
+                  Navigator.pushNamed(context, '/selectionPage');
                 },
                 child: SizedBox(
                   width: calculateIconSize(context) * 1.5,
@@ -107,7 +106,7 @@ Widget _buildEyeIconAndStatus(BuildContext context, String status,
   String Righteyestate = '';
 
 //Left and right of  palte count and eyestate are reversed because the plaate count represent the hand covering...
-  if ( correctLeftPlatesCount <= 8) {
+  if (correctLeftPlatesCount <= 8) {
     Righteyestate = badeyestate;
   } else if ((correctLeftPlatesCount > 8 && correctLeftPlatesCount < 10)) {
     Righteyestate = okeyestate;

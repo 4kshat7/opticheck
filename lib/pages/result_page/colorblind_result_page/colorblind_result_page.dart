@@ -52,8 +52,7 @@ class _ColorblindResultPageState extends State<ColorblindResultPage> {
                 padding: const EdgeInsets.only(right: 15.0, top: 10.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.popUntil(
-                        context, ModalRoute.withName('/selectionPage'));
+                    Navigator.pushNamed(context, '/selectionPage');
                   },
                   child: SizedBox(
                     width: calculateIconSize(context) * 1.5,

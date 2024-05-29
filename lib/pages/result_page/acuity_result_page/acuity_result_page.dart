@@ -51,8 +51,7 @@ class _AcuityResultPageState extends State<AcuityResultPage> {
               child: GestureDetector(
                 onTap: () {
                   // Navigator.pop(context);
-                  Navigator.popUntil(
-                      context, ModalRoute.withName('/selectionPage'));
+                  Navigator.pushNamed(context, '/selectionPage');
                 },
                 child: SizedBox(
                   width: calculateIconSize(context) * 1.5,

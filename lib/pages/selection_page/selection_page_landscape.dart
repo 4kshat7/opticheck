@@ -47,14 +47,15 @@ class _LandscapeSelectionPageState extends State<LandscapeSelectionPage> {
           ),
         ),
         centerTitle: true,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20.0, top: 5.0),
-          child: CustomBackIcon(
-            onPressed: () {
-              Navigator.pushNamed(context, '/homePage');
-            },
-          ),
-        ),
+        automaticallyImplyLeading: false,
+        // leading: Padding(
+        //   padding: const EdgeInsets.only(left: 20.0, top: 5.0),
+        //   child: CustomBackIcon(
+        //     onPressed: () {
+        //       Navigator.pushNamed(context, '/homePage');
+        //     },
+        //   ),
+        // ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20.0, top: 10.0),

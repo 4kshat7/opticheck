@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                       PrimaryButton(
                         buttonText: 'Get Started',
                         onPressed: () {
-                          Navigator.pushNamed(context, '/bluetoothpage');
+                          Navigator.pushNamed(context, '/bluetoothpagenew2');
                         },
                       ),
                       Padding(

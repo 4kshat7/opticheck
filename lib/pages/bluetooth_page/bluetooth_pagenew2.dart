@@ -1,53 +1,22 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-// import 'package:opticheck/common/global.dart'; // Ensure this is the correct path
-// import 'package:opticheck/connection.dart'; // Ensure this is the correct path
-// import 'package:opticheck/led.dart';
-// import 'package:opticheck/pages/sensor_page.dart'; // Ensure this is the correct path and the class name is correctly spelled
-
-// class BluetoothPage extends StatelessWidget {
-//   const BluetoothPage(
-//       {super.key}); // Correct usage of super for passing key to superclass
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//         child: Scaffold(
-//       appBar: AppBar(
-//         title: const Text(
-//             'Connection'), // It's a good practice to use const for widgets that do not change over time
-//       ),
-//       body: SelectBondedDevicePage(
-//         onChatPage: (BluetoothDevice device) {
-//           // Corrected the function name and directly used the type
-//           Navigator.push(
-//             context,
-//             MaterialPageRoute(
-//               builder: (context) =>
-//                   SensorPage(), // Assuming SensorPage is the correct name
-//             ),
-//           );
-//         },
-//       ),
-//     ));
-//   }
-// }
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:opticheck/common/global/bluetoothconnectionprovider.dart';
 import 'package:opticheck/common/global/global.dart';
 import 'package:opticheck/pages/sensorpage/sensor_page.dart';
 import 'package:opticheck/utils/back_icons.dart';
 import 'package:opticheck/utils/primary_button.dart';
+import 'package:provider/provider.dart';
 
-class BluetoothPage extends StatefulWidget {
-  const BluetoothPage({Key? key}) : super(key: key);
+class BluetoothPageNew2 extends StatefulWidget {
+  const BluetoothPageNew2({Key? key}) : super(key: key);
 
   @override
-  _BluetoothPageState createState() => _BluetoothPageState();
+  _BluetoothPageStateNew2 createState() => _BluetoothPageStateNew2();
 }
 
-class _BluetoothPageState extends State<BluetoothPage> {
+class _BluetoothPageStateNew2 extends State<BluetoothPageNew2> {
+  Timer? _timer;
   late BluetoothConnection _connection;
   bool _isConnecting = true;
 
@@ -57,33 +26,50 @@ class _BluetoothPageState extends State<BluetoothPage> {
     _connectToDevice();
   }
 
-  void _connectToDevice() async {
-    final navigator = Navigator.of(context);
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
-    try {
-      _connection = await BluetoothConnection.toAddress("00:23:00:00:49:65");
-      print('Connected to the device');
+  // void _connectToDevice() async {
+  //   final navigator = Navigator.of(context);
 
-      if (_connection != null && _connection.isConnected) {
-        navigator.pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => SensorPage(connection: _connection!),
-          ),
-        );
-      } else {
-        _isConnecting = false;
+  //   try {
+  //     _connection = await BluetoothConnection.toAddress("00:23:00:00:49:65");
+  //     print('Connected to the device');
+
+  //     if (_connection != null && _connection.isConnected) {
+  //       navigator.pushReplacement(
+  //         MaterialPageRoute(
+  //           builder: (context) => SensorPage(connection: _connection!),
+  //         ),
+  //       );
+  //     } else {
+  //       _isConnecting = false;
+  //     }
+
+  //     _isConnecting = false;
+  //   } catch (e) {
+  //     print("Error connecting to device: $e");
+
+  //     // If connection fails, set the flag to false
+  //     _isConnecting = false;
+  //   }}
+  void _connectToDevice() {
+    final provider =
+        Provider.of<BluetoothConnectionProvider>(context, listen: false);
+    provider.connect("00:23:00:00:49:65").then((_) {
+      if (provider.connection != null && provider.connection!.isConnected) {
+        Navigator.pushReplacementNamed(context, '/selectionPage');
+
+        provider.startListening();
+        
       }
-
-      _isConnecting = false;
-    } catch (e) {
-      print("Error connecting to device: $e");
-
-      // If connection fails, set the flag to false
-      _isConnecting = false;
-    }
+    });
 
     // Force rebuild after 10 seconds, regardless of connection status
-    Timer(Duration(seconds: 10), () {
+    _timer = Timer(Duration(seconds: 10), () {
       if (_isConnecting) {
         setState(() {
           _isConnecting = false;

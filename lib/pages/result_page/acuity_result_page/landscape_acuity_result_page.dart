@@ -52,8 +52,7 @@ class _LandscapeAcuityResultPageState extends State<LandscapeAcuityResultPage> {
               child: GestureDetector(
                 onTap: () {
                   // Navigator.pop(context);
-                  Navigator.popUntil(
-                      context, ModalRoute.withName('/selectionPage'));
+                  Navigator.pushNamed(context, '/selectionPage');
                 },
                 child: SizedBox(
                   width: calculateIconSize(context) * 1.5,
@@ -217,6 +216,7 @@ Widget _buildEyeIconAndStatus(BuildContext context, String status,
           //   child: Lottie.network(
           //       'https://lottie.host/1d50b1d2-ac5f-4225-9b38-b7d4a2258898/HlpE3G1sAb.json'),
           // ),
+
           leftlogmarvalue == 2
               ? Text('')
               : Text(

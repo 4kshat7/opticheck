@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:opticheck/common/global/bluetooth_state_class.dart';
+import 'package:opticheck/common/global/bluetoothconnectionprovider.dart';
 import 'package:opticheck/common/global/data_model.dart';
 import 'package:opticheck/common/global/global.dart';
 import 'package:opticheck/pages/acuity_page/design/Landscape_acuitytest_design.dart';
@@ -8,6 +9,7 @@ import 'package:opticheck/pages/acuity_page/design/portrait_acuitytest_design.da
 import 'package:opticheck/pages/acuity_page/logic/acuitytest_logic.dart';
 import 'package:opticheck/pages/bluetooth_page/bluetooth_page.dart';
 import 'package:opticheck/pages/bluetooth_page/bluetooth_pagenew.dart';
+import 'package:opticheck/pages/bluetooth_page/bluetooth_pagenew2.dart';
 import 'package:opticheck/pages/colorblind_page/design/Portrait_colorblindtest_design.dart';
 import 'package:opticheck/pages/colorblind_page/design/Landscape_colorblindtest_design.dart';
 import 'package:opticheck/pages/colorblind_page/logic/colorbindtest_logic.dart';
@@ -32,33 +34,65 @@ import 'package:opticheck/pages/result_page/result_page_main.dart';
 import 'package:opticheck/pages/selection_page/selection_page.dart';
 import 'package:opticheck/pages/selection_page/selection_page_landscape.dart';
 import 'package:opticheck/common/responsive/responsive.dart';
-import 'package:opticheck/pages/sensor_page.dart';
+import 'package:opticheck/pages/sensorpage/sensor_page.dart';
+import 'package:opticheck/pages/sensorpage/sensor_pagenew.dart';
 import 'package:opticheck/utils/EyeCoverScreen.dart';
 import 'package:opticheck/utils/primary_button.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
-Future<void> requestBluetoothPermissions() async {
-  // Request BLUETOOTH_SCAN permission
-  var bluetoothScanStatus = await Permission.bluetooth.status;
-  if (!bluetoothScanStatus.isGranted) {
-    await Permission.bluetoothScan.request();
-  }
+// Future<void> requestBluetoothPermissions() async {
+//   // Request BLUETOOTH_SCAN permission
+//   var bluetoothScanStatus = await Permission.bluetooth.status;
+//   if (!bluetoothScanStatus.isGranted) {
+//     await Permission.bluetoothScan.request();
+//   }
 
-  // Request BLUETOOTH_CONNECT permission
-  var bluetoothConnectStatus = await Permission.bluetoothConnect.status;
-  if (!bluetoothConnectStatus.isGranted) {
-    await Permission.bluetoothConnect.request();
-  }
-}
+//   // Request BLUETOOTH_CONNECT permission
+//   var bluetoothConnectStatus = await Permission.bluetoothConnect.status;
+//   if (!bluetoothConnectStatus.isGranted) {
+//     await Permission.bluetoothConnect.request();
+//   }
+// }
+
+// Future<void> requestBluetoothPermissions() async {
+//   if (await Permission.bluetoothScan.isGranted &&
+//       await Permission.bluetooth.isGranted) {
+//     // Permissions already granted
+//     _connectToDevice();
+//   } else {
+//     // Request permissions
+//     Map<Permission, PermissionStatus> statuses = await [
+//       Permission.bluetoothScan,
+//       Permission.bluetooth,
+//       Permission.bluetoothConnect,
+//     ].request();
+
+//     if (statuses[Permission.bluetoothScan].isGranted &&
+//         statuses[Permission.bluetooth].isGranted &&
+//         statuses[Permission.bluetoothConnect].isGranted) {
+//       _connectToDevice();
+//     } else {
+//       // Handle permissions not granted
+//       print('Bluetooth permissions are not granted');
+//     }
+//   }
+// }
+
+// void log(String message) {
+//   if (const bool.fromEnvironment('dart.vm.product') == false) {
+//     print(message);
+//   }
+// }
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ResultDataModel()),
-        ChangeNotifierProvider(create: (context) => BluetoothStateNotifier()),
+        ChangeNotifierProvider(
+            create: (context) => BluetoothConnectionProvider()),
       ],
       child: const MyApp(),
     ),
@@ -80,7 +114,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      requestBluetoothPermissions();
+      // requestBluetoothPermissions();
     });
     _bluetoothEnabledFuture = FlutterBluetoothSerial.instance.requestEnable();
   }
@@ -101,9 +135,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      requestBluetoothPermissions();
+      // requestBluetoothPermissions();
     });
-    final sensorConnection = Provider.of<ResultDataModel>(context).connection;
+    // final sensorConnection = Provider.of<ResultDataModel>(context).connection;
     return MaterialApp(
       title: 'OptiCheck',
       theme: ThemeData(
@@ -181,7 +215,7 @@ class _MyAppState extends State<MyApp> {
           }
         },
       ),
-      
+
       // initialRoute: '/homePage',
       routes: {
         '/homepage': (context) => ResponsiveLayout(
@@ -193,10 +227,14 @@ class _MyAppState extends State<MyApp> {
         //       mobileBody: SelectionPage(),
         //       landscapeBody: LandscapeSelectionPage(),
         //     ),
-        
-        '/sensorpage': (context) => SensorPage(connection: sensorConnection),
 
-        '/bluetoothpage': (context) => const BluetoothPageNew(),
+        // '/sensorpage': (context) => SensorPage(connection: sensorConnection),
+
+        '/sensorpagenew': (context) => SensorPageNew(),
+
+        // '/bluetoothpage': (context) => const BluetoothPage(),
+        // '/bluetoothpagenew': (context) => const BluetoothPageNew(),
+        '/bluetoothpagenew2': (context) => BluetoothPageNew2(),
 
 //result pages
         '/acuityresultpage': (context) => ResultPageMain(pages: [

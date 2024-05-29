@@ -49,25 +49,26 @@ class _SelectionPageState extends State<SelectionPage> {
             ),
           ),
           centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 20.0, top: 5.0),
-            child: CustomBackIcon(
-              onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   PageTransition(
-                //     child: ResponsiveLayout(
-                //       mobileBody: HomePage(),
-                //       landscapeBody: LandscapeHomePage(),
-                //     ),
-                //     type: PageTransitionType.leftToRightWithFade,
-                //     duration: Duration(milliseconds: 500),
-                //   ),
-                // );
-                Navigator.pushNamed(context, '/homePage');
-              },
-            ),
-          ),
+          automaticallyImplyLeading: false,
+          // leading: Padding(
+          //   padding: const EdgeInsets.only(left: 20.0, top: 5.0),
+          //   child: CustomBackIcon(
+          //     onPressed: () {
+          //       // Navigator.push(
+          //       //   context,
+          //       //   PageTransition(
+          //       //     child: ResponsiveLayout(
+          //       //       mobileBody: HomePage(),
+          //       //       landscapeBody: LandscapeHomePage(),
+          //       //     ),
+          //       //     type: PageTransitionType.leftToRightWithFade,
+          //       //     duration: Duration(milliseconds: 500),
+          //       //   ),
+          //       // );
+          //       Navigator.pushNamed(context, '/homePage');
+          //     },
+          //   ),
+          // ),
           actions: [
             // Stack(
             //   children: [

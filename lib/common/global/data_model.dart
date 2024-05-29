@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+// import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
 class ResultDataModel extends ChangeNotifier {
   int _correctPlatesCount = 0;
@@ -16,7 +16,7 @@ class ResultDataModel extends ChangeNotifier {
       2; // value is set to 2 , so that it does not disrupt acuity-result-page logic.
 
 //bluetooth
-  late BluetoothConnection? _connection = null; // Bluetooth connection field
+  // late BluetoothConnection? _connection = null; // Bluetooth connection field
 
 // Getters
   int get correctPlatesCount => _correctPlatesCount;
@@ -31,7 +31,7 @@ class ResultDataModel extends ChangeNotifier {
   double get Right_logMarvalue => _Right_logMarvalue;
 
   //bluetooth
-  BluetoothConnection? get connection => _connection;
+  // BluetoothConnection? get connection => _connection;
 
   void updateCorrectPlatesCount(int count) {
     _correctPlatesCount = count;
@@ -69,8 +69,8 @@ class ResultDataModel extends ChangeNotifier {
   }
 
   //bluetooth
-  void updateBluetoothConnection(BluetoothConnection? connection) {
-    _connection = connection;
-    notifyListeners();
-  }
+  // void updateBluetoothConnection(BluetoothConnection? connection) {
+  //   _connection = connection;
+  //   notifyListeners();
+  // }
 }

@@ -7,7 +7,7 @@ import "package:opticheck/utils/IshiharaPlate.dart";
 import "package:opticheck/utils/landoltPlate.dart";
 
 //images
-const String globalLogoImage = 'lib/assets/images/opticheck.png';
+const String globalLogoImage = 'lib/assets/images/opticheck.jpeg';
 const String logoNoBgImage = 'lib/assets/images/opticheck_nobg.png';
 const String logoIconImage = 'lib/assets/images/opticheck_icon.png';
 

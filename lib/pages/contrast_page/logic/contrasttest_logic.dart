@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:opticheck/common/global/bluetoothconnectionprovider.dart';
 import 'package:opticheck/common/global/data_model.dart';
 import 'package:opticheck/common/global/global.dart';
 import 'package:opticheck/utils/EyeCoverScreen.dart';
@@ -129,11 +130,17 @@ class ContrastTestLogicController with ChangeNotifier {
     }
 
     correctContrastPlatesCount = 0;
+    final provider =
+        Provider.of<BluetoothConnectionProvider>(context, listen: false);
     // remainingLandoltPlates = List.from(landoltPlates);
     // currentPlate = getNextPlate(context);
     // generateLabels(context);
     // labelColors.fillRange(0, 4, colorBlindTestButtonColor);
     if (whicheye == 'left') {
+      if (provider.connection != null) {
+        provider.sendMessage('X');
+      }
+
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -141,6 +148,9 @@ class ContrastTestLogicController with ChangeNotifier {
                   routeName: '/rightcontrasttestpage', whichEye: 'right')));
       ;
     } else {
+      if (provider.connection != null) {
+        provider.sendMessage('X');
+      }
       Navigator.pushNamed(context, '/contrastresultpage');
     }
 

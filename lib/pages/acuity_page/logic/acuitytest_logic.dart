@@ -121,6 +121,7 @@
 
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:opticheck/common/global/bluetoothconnectionprovider.dart';
 import 'package:opticheck/common/global/data_model.dart';
 import 'package:opticheck/common/global/global.dart';
 import 'package:opticheck/utils/AcuityPlate.dart';
@@ -228,6 +229,8 @@ class AcuitytestLogicController with ChangeNotifier {
   void reset(BuildContext context) {
     // _resultDataModel.updateNewLogValueReached(currentPlate!.logMARValue);
     // _resultDataModel.updateCorrectAcuityPlatesCount(correctAcuityPlatesCount);
+    final provider =
+        Provider.of<BluetoothConnectionProvider>(context, listen: false);
 
     if (whicheye == 'left') {
       _resultDataModel
@@ -246,6 +249,9 @@ class AcuitytestLogicController with ChangeNotifier {
       return;
     }
     if (whicheye == 'left') {
+      if (provider.connection != null) {
+        provider.sendMessage('X');
+      }
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -253,6 +259,9 @@ class AcuitytestLogicController with ChangeNotifier {
                   routeName: '/rightacuitytestpage', whichEye: 'right')));
       ;
     } else {
+      if (provider.connection != null) {
+        provider.sendMessage('X');
+      }
       Navigator.pushNamed(context, '/acuityresultpage');
     }
 

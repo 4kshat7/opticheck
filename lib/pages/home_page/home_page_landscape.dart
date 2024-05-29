@@ -133,7 +133,7 @@ class _LandscapeHomePageState extends State<LandscapeHomePage> {
             PrimaryButton(
               buttonText: 'Get Started',
               onPressed: () {
-                Navigator.pushNamed(context, '/bluetoothpage');
+                Navigator.pushNamed(context, '/bluetoothpagenew2');
               },
             ),
             Padding(
